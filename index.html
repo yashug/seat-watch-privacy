@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<title>Seat Watch — what it can see</title>
+<style>
+/* inlined from ui.css by docs/build.sh */
+/**
+ * BMS Seat Watch — shared design tokens.
+ *
+ * Light, and cool rather than warm. The popup draws a miniature of a seat map
+ * you are about to open on BookMyShow, and BookMyShow's seat maps are white —
+ * so a light interface is the honest one. A dark hall looked atmospheric while
+ * depicting a different room from the one you'd actually see.
+ *
+ * Colour carries the search rather than decorating it: booked seats fade back
+ * into the paper, free seats sit in a plain slate blue, and only the blocks that
+ * match your filters take the green. Green because that is what "available"
+ * already means on a seat map — a convention worth keeping, not fighting.
+ */
+
+:root {
+  color-scheme: light;
+
+  --paper:   #F4F6FA;   /* the page */
+  --card:    #FFFFFF;   /* surfaces that sit on it */
+  --sunk:    #EEF1F7;   /* input wells, quiet fills */
+  --edge:    #E1E7F0;   /* hairlines */
+  --edge-2:  #CFD8E6;   /* hairlines that need to be seen */
+
+  --taken:   #D2DAE7;   /* a booked seat — present, but never competing */
+  --free:    #6E86AF;   /* free, but not what you asked for */
+  --open:    #17915C;   /* free, adjacent, where you wanted it */
+  --open-2:  #E7F4ED;   /* the same, as a fill */
+
+  /* Deep navy rather than black: the same contrast, less glare. */
+  --ink:     #16202F;
+  --ink-2:   #55637A;
+  --ink-3:   #8894A8;
+  --bad:     #C2453E;
+
+  /* Where a watch lives. Two hues picked to stay clear of the two colours that
+     already carry meaning here — --open green ("the seats you asked for") and
+     --bad red ("this failed") — so a provider can never be misread as a state.
+     Neither is a brand colour: the site is named in words beside it, which is
+     what actually identifies it, and leaves the colour free to be legible
+     rather than accurate. */
+  --bms:     #6D4AD6;   /* BookMyShow */
+  --bms-2:   #EFEBFC;
+  --dst:     #0E7C86;   /* District */
+  --dst-2:   #E4F2F3;
+
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", "Cascadia Mono", "Roboto Mono", Menlo, monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+
+  --r: 10px;
+  --lift: 0 1px 2px rgba(22, 32, 47, .05);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 13px/1.5 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* -------------------------------------------------------------- type roles */
+
+/* Structural micro-labels. Mono because they name data, not prose — this is
+   the box-office register the whole interface is written in. */
+.eyebrow {
+  font: 500 9.5px/1 var(--mono);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.num {
+  font: 500 var(--num-size, 13px)/1 var(--mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -.01em;
+}
+
+/* -------------------------------------------------------------- the screen */
+
+/* A pale bar with light spilling off it. The only gradient in the interface,
+   and it is doing a literal job: this is where the picture is. */
+.beam { position: relative; }
+.beam::before {
+  content: "";
+  position: absolute;
+  inset: -4px -14px auto;
+  height: 120px;
+  background: radial-gradient(115% 100% at 50% 0, rgba(23, 145, 92, .07), transparent 70%);
+  pointer-events: none;
+}
+.beam__bar {
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, transparent, var(--edge-2) 20%, var(--edge-2) 80%, transparent);
+}
+.beam__label {
+  display: block;
+  margin-top: 7px;
+  text-align: center;
+  letter-spacing: .34em;
+  text-indent: .34em;
+  color: var(--ink-3);
+}
+
+/* Screen below the seats, which is where BookMyShow puts it. The popup's map
+   has to be the same way round as the page it sends you to. */
+.beam--bottom::before {
+  inset: auto -14px -4px;
+  height: 100px;
+  background: radial-gradient(115% 100% at 50% 100%, rgba(23, 145, 92, .07), transparent 70%);
+}
+
+/* -------------------------------------------------------------- controls */
+
+button {
+  font: 500 12.5px/1 var(--sans);
+  color: var(--ink);
+  background: var(--card);
+  border: 1px solid var(--edge-2);
+  border-radius: 8px;
+  padding: 9px 13px;
+  cursor: pointer;
+  box-shadow: var(--lift);
+  transition: background .12s ease, border-color .12s ease;
+}
+button:hover:not(:disabled) { background: var(--sunk); border-color: #B9C6D9; }
+button:disabled { opacity: .45; cursor: default; box-shadow: none; }
+
+button.go {
+  background: var(--open);
+  border-color: var(--open);
+  color: #FFFFFF;
+  font-weight: 600;
+}
+button.go:hover:not(:disabled) { background: #127C4D; border-color: #127C4D; }
+
+button.quiet {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  color: var(--ink-2);
+  padding: 6px 8px;
+}
+button.quiet:hover:not(:disabled) { color: var(--ink); background: var(--sunk); border-color: transparent; }
+button.danger:hover:not(:disabled) { color: var(--bad); background: #FBEDEC; }
+
+input[type=text], input[type=number], select {
+  width: 100%;
+  padding: 9px 11px;
+  background: var(--card);
+  border: 1px solid var(--edge-2);
+  border-radius: 8px;
+  font: 400 13px/1.4 var(--sans);
+  color: var(--ink);
+}
+input::placeholder { color: var(--ink-3); }
+input:focus, select:focus { border-color: var(--open); outline: none; }
+input.mono { font-family: var(--mono); font-size: 12px; }
+
+:focus-visible {
+  outline: 2px solid var(--open);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+a { color: var(--open); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+
+/* ---------------------------------------------- keeping the machine awake
+   Shown on the welcome page and again in settings. Nothing runs while the
+   machine sleeps, and the release being waited for lands late in the
+   evening, so this is the difference between working and silently not. */
+  /* Two recipes side by side rather than a paragraph each: you are on one of
+     these platforms, not both, and the point is to find your half and stop
+     reading. */
+  .awake { margin-top: 30px; padding: 18px 20px 4px;
+           border: 1px solid var(--edge-2); border-radius: var(--r); background: var(--card); }
+  .awake > h2 { margin: 0 0 3px; font: 600 14px/1.3 var(--sans); }
+  .awake > p { margin: 0 0 4px; color: var(--ink-2); font-size: 13px; line-height: 1.6; }
+  .awake__cols { display: flex; gap: 26px; flex-wrap: wrap; }
+  .awake__col { flex: 1 1 240px; min-width: 0; padding: 14px 0 16px; }
+  .awake__col + .awake__col { border-left: 1px solid var(--edge); padding-left: 26px; }
+  .awake h3 { margin: 0 0 8px; font: 600 12px/1 var(--sans); letter-spacing: .04em;
+              text-transform: uppercase; color: var(--ink-3); }
+  .awake p.step { margin: 0 0 9px; color: var(--ink-2); font-size: 13px; line-height: 1.55; }
+  /* pre-wrap, so a recipe that is two commands stays two commands, and a long
+     one wraps instead of being clipped by the column. Copying still gets the
+     line breaks that are actually there and none that are not. */
+  .awake code { display: block; margin: 7px 0 0; padding: 9px 11px;
+                font: 11.5px/1.6 var(--mono); background: var(--sunk); color: var(--ink);
+                border-radius: 6px; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .awake .lid { margin: 2px 0 0; color: var(--ink-3); font-size: 12px; line-height: 1.55; }
+
+
+/* --- where a watch lives ---------------------------------------------------
+   The site's name, set in the interface's own type rather than its logo: this
+   is a third party saying where a link goes, not a badge of association. Small,
+   lowercase — the rest of this interface has no all-caps, and adding some for a
+   label would import a convention it does not use. */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  height: 15px;
+  padding: 0 6px;
+  border-radius: 4px;
+  font: 600 10px/1 var(--sans);
+  letter-spacing: .01em;
+  background: var(--sunk);
+  color: var(--ink-2);
+}
+.tag[data-provider="bookmyshow"] { background: var(--bms-2); color: var(--bms); }
+.tag[data-provider="district"]   { background: var(--dst-2); color: var(--dst); }
+</style>
+<style>
+  body { padding-bottom: 70px; }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 0 24px; }
+  header.beam { padding: 48px 0 28px; }
+  header h1 { margin: 24px 0 8px; font: 650 26px/1.15 var(--sans); letter-spacing: -.024em; }
+  header p { margin: 0; color: var(--ink-2); font-size: 14px; }
+  h2 { margin: 30px 0 10px; font: 600 15px/1.3 var(--sans); }
+  p, li { color: var(--ink-2); font-size: 13.5px; line-height: 1.65; }
+  p { margin: 0 0 12px; }
+  ul { margin: 0 0 12px; padding-left: 20px; }
+  li { margin-bottom: 7px; }
+  b { color: var(--ink); font-weight: 600; }
+  code { font: 12px var(--mono); background: var(--sunk); color: var(--ink);
+         padding: 2px 6px; border-radius: 4px; }
+  .stamp { margin-top: 34px; padding-top: 16px; border-top: 1px solid var(--edge);
+           color: var(--ink-3); font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="beam">
+    <div class="beam__bar"></div>
+    <h1>What this extension can see</h1>
+    <p>Short version: your settings stay in your browser, and nothing is sent
+       anywhere except the alert destinations you set up yourself.</p>
+  </header>
+
+  <h2>There is no server</h2>
+  <p>This extension has no backend. Nobody operates a service behind it, so there is
+     nowhere for your data to be collected, sold, or breached. Everything it knows
+     lives in <code>chrome.storage.local</code> on your own machine.</p>
+
+  <h2>What it stores</h2>
+  <ul>
+    <li>The seat-map addresses you chose to watch, and a label for each.</li>
+    <li>The films you chose to watch for a release — the film, the city, and the
+        cinemas you picked for it.</li>
+    <li>The city you selected, and the list of cinemas in it, kept for a week so the
+        settings page has something to show you without fetching it again.</li>
+    <li>What the last check found — seat counts, which blocks were free, and a
+        recent history of how many seats were free over time. For a release watch,
+        which cinemas have opened.</li>
+    <li>Your filter settings, how often to check, and how far ahead of a release to
+        start.</li>
+    <li>Your Telegram bot token and the chat IDs you chose to alert, or your webhook
+        address, if you set them up. These are stored unencrypted, readable by
+        anything with access to your Chrome profile. Fine for a bot you made for
+        this; don't reuse one that does anything important.</li>
+  </ul>
+
+  <h2>What leaves your machine</h2>
+  <ul>
+    <li><b>BookMyShow</b> — seat maps are loaded in your own browser, in your own
+        logged-in session, exactly as if you'd opened them yourself. No credentials
+        are read or transmitted.</li>
+    <li><b>BookMyShow, anonymously where it can</b> — the checks that watch for a film
+        to go on sale ask for public listings only, and are tried first with cookies
+        switched off, carrying nothing that identifies you. In practice that is how
+        they are answered. If a request is refused that way it is retried with your
+        session, exactly as loading the page yourself would send it.</li>
+    <li><b>District</b> — District answers seat maps through an API rather than drawing
+        them in a page, and that API requires your session, so a watched show is
+        checked by asking for its seat map <i>with your District cookies attached</i>,
+        from the extension rather than from a tab. This is the one place the extension
+        makes a signed-in request on your behalf. It is the same request the seat page
+        makes when you open it, it only ever reads, and it books nothing. If you are
+        not signed in to District the request is refused and the watch reports an
+        error rather than doing anything else.</li>
+    <li><b>District, anonymously</b> — the checks that watch for a film to go on sale
+        read the film's public page with cookies switched <i>off</i>, carrying nothing
+        that identifies you. These work whether or not you have a District account.</li>
+    <li><b>Telegram</b>, only if you configure it. Alerts go out; and because you can
+        share a BookMyShow or District link to the bot to start watching it, the
+        extension also reads that bot's incoming messages — about once a minute, and
+        only your bot's, never your Telegram account. Only messages from the chat IDs
+        you listed are acted on; anything from anyone else is ignored without a reply.
+        If you point it at a group, everyone in that group sees the alerts and anyone
+        in it can add a watch — that is what the option is for, and it is worth
+        knowing before you add one. Turn the reading off by clearing the bot token.</li>
+    <li><b>link.district.in</b>, only if you allow it in Settings and only when you share a
+        District app link to the bot. District's app shares a shortened link rather than the
+        film's address, so the link has to be followed to find out which film it names. One
+        request per link you share, no cookies, and nothing is sent — the address you shared
+        is the whole request. Seat Watch never asks for this at install; it is a button in
+        Settings you can decline and revoke.</li>
+    <li><b>Your webhook address</b>, only if you configure one, and only the alert text.
+        Chrome asks your permission for that specific address before it is used.</li>
+  </ul>
+  <p>There is no analytics, no telemetry, no crash reporting and no third-party
+     script of any kind. The extension bundles no remote code — the content security
+     policy blocks it.</p>
+
+  <h2>What it deliberately does not read</h2>
+  <p>BookMyShow's pages carry your account details — name, email, mobile number and a
+     session token — in the same page data as the showtimes. The code does not descend
+     into those parts of it at all, so that information is never read rather than
+     read-and-discarded. There is a test asserting this, using a value that trips if
+     anything touches it.</p>
+  <p>District's pages are the same shape of problem. Your details sit beside the city
+     you have chosen — and the city <i>is</i> read, because a film that isn't out yet
+     has no city in its address and a watch has to know which one to watch in. So the
+     reach is narrow on purpose: the chosen city and nothing else beside it. There is a
+     test for this one too, built the same way.</p>
+  <p>The <b>tabs</b> permission is not requested. The extension cannot read the
+     addresses or titles of your other tabs, and never sees your browsing history.</p>
+
+  <h2>Removing it</h2>
+  <p>Uninstalling deletes everything above. There is no account to close and nothing
+     retained elsewhere, because there is no elsewhere.</p>
+
+  <div class="stamp">
+    Seat Watch is free and open source. If something here doesn't match what the code
+    does, the code is the bug — please report it.
+  </div>
+
+</div>
+</body>
+</html>
