@@ -141,6 +141,30 @@ header.hero .lede b { color: var(--ink); }
 .btn.ghost:hover { border-color: var(--ink-3); }
 .fineprint { color: var(--ink-3); font-size: 14px; margin: 0; }
 
+/* Shown only on a phone, where the install cannot happen.
+ *
+ * `[hidden]` first and explicitly: `display: flex` is an author rule and beats
+ * the user agent's [hidden] { display: none }, so without this line the panel
+ * shows on every desktop — the same trap the extension's own popup fell into. */
+.onphone[hidden] { display: none; }
+.onphone {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
+  margin: 18px 0 0; padding: 16px 18px;
+  border: 1px solid rgba(185,130,42,.32); border-radius: var(--r);
+  background: var(--amber-2); color: #7A5B00;
+  font-size: 15px; line-height: 1.5; text-align: left;
+}
+.onphone p { margin: 0; flex: 1 1 260px; }
+.onphone b { color: #5C4400; }
+.onphone button {
+  flex: none; padding: 11px 16px; border-radius: 9px; cursor: pointer;
+  border: 1px solid rgba(185,130,42,.45); background: var(--card);
+  font: 600 14.5px/1 var(--sans); color: #7A5B00;
+}
+.onphone button:hover { border-color: rgba(185,130,42,.7); }
+.onphone button.done { background: var(--open-2); border-color: rgba(23,145,92,.4); color: var(--open); }
+.onphone code { background: rgba(255,255,255,.7); color: #5C4400; }
+
 /* ------------------------------------------------- the two watches, twinned
  *
  * The same frame around each, because the claim is that they are equals: one
@@ -554,6 +578,13 @@ footer .small { max-width: 64ch; line-height: 1.6; }
       <a class="btn ghost" href="#videos">Watch the 60-second demo</a>
     </div>
     <p class="fineprint">No account. No server. Nothing to pay. Chrome, Edge, Brave and Arc.</p>
+
+    <div class="onphone" id="onphone-hero" hidden>
+      <p><b>On a phone?</b> Chrome extensions only install on a computer — so copy
+      <code>tinyurl.com/seat-watch</code> and open it on your laptop when you get home.</p>
+      <button type="button" data-copy>Copy the link</button>
+    </div>
+
 
     <div class="twin">
 
@@ -1177,6 +1208,16 @@ footer .small { max-width: 64ch; line-height: 1.6; }
     </details>
 
     <details>
+      <summary>Can I install it from my phone?</summary>
+      <p>No — and no browser lets you, because Chrome on Android and iOS doesn't run
+      extensions at all. There's also no way to send an install from a phone to your
+      laptop: extensions sync between desktop Chromes signed into the same account, and a
+      phone isn't one of them. Copy <code>tinyurl.com/seat-watch</code>, open it on the
+      computer you'd actually leave running, and install there. After that your phone is
+      very much involved — that's what the Telegram half is for.</p>
+    </details>
+
+    <details>
       <summary>Which browsers?</summary>
       <p>Chrome, and the Chromium browsers that install from the Chrome Web Store — Edge, Brave,
       Arc, Opera. Not Safari, not Firefox.</p>
@@ -1195,6 +1236,12 @@ footer .small { max-width: 64ch; line-height: 1.6; }
     <p>Put a watch on each and go and do something else.</p>
     <div class="cta">
       <a class="btn primary" href="https://chromewebstore.google.com/detail/seat-watch-for-bookmyshow/hkbeaeicmbnldhgfkoonkkebdlphnohn">Add to Chrome — free</a>
+    </div>
+
+    <div class="onphone" id="onphone-close" hidden>
+      <p><b>Reading this on a phone?</b> The watching happens in Chrome on a computer.
+      Copy <code>tinyurl.com/seat-watch</code> and open it there.</p>
+      <button type="button" data-copy>Copy the link</button>
     </div>
   </div>
 </div>
@@ -1218,6 +1265,42 @@ footer .small { max-width: 64ch; line-height: 1.6; }
 </footer>
 
 <script>
+/* ------------------------------------------------------------ on a phone
+ *
+ * Most of this product's audience arrives from a phone — an Instagram caption,
+ * a WhatsApp forward, a film group on Telegram — and the install is the one
+ * thing a phone cannot do: Chrome on Android and iOS runs no extensions, and
+ * nothing pushes an install from a phone to a desktop. A dead "Add to Chrome"
+ * button is a bounce; a copied link is a visit tomorrow from a laptop.
+ *
+ * Detected rather than assumed from width, because a narrow desktop window is
+ * still a desktop, and a tablet in landscape is still not.
+ */
+const SHORT = 'https://tinyurl.com/seat-watch';
+const onPhone = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+  || navigator.userAgentData?.mobile === true;
+
+if (onPhone) {
+  document.querySelectorAll('.onphone').forEach((el) => { el.hidden = false; });
+}
+
+document.querySelectorAll('.onphone [data-copy]').forEach((btn) => {
+  btn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(SHORT);
+      btn.textContent = 'Copied';
+      btn.classList.add('done');
+      setTimeout(() => { btn.textContent = 'Copy the link'; btn.classList.remove('done'); }, 2400);
+    } catch {
+      // Clipboard access can be refused outright — in a private window, or in an
+      // in-app browser. Showing the address is the fallback that always works,
+      // because it can be read and typed.
+      btn.textContent = SHORT.replace('https://', '');
+      btn.disabled = true;
+    }
+  });
+});
+
 /* ---------------------------------------------------------------- the hall
  *
  * The same picture the popup draws, in the same three colours: taken fades into
