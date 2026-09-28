@@ -478,8 +478,9 @@ dl.filters dd { flex: 1; margin: 0; color: var(--ink-2); font-size: 15px; }
 .vid.soon .frame { cursor: default; background: var(--sunk); }
 .vid.soon .frame span { font: 500 13.5px/1 var(--mono); color: var(--ink-3); }
 
-/* The complete walkthrough leads the section and is served from here rather
-   than from YouTube, so it gets the full width and a real player. */
+/* The explainer and the complete walkthrough lead the section and are served
+   from here rather than from YouTube, so they get the full width and a real
+   player. */
 .vid.lead { grid-column: 1 / -1; }
 .vid video { display: block; width: 100%; max-width: 100%; aspect-ratio: 16/9; background: #0E1521; }
 .vid .meta .row { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
@@ -575,7 +576,7 @@ footer .small { max-width: 64ch; line-height: 1.6; }
 
     <div class="cta">
       <a class="btn primary" href="https://chromewebstore.google.com/detail/seat-watch-for-bookmyshow/hkbeaeicmbnldhgfkoonkkebdlphnohn">Add to Chrome — free</a>
-      <a class="btn ghost" href="#videos">Watch the 60-second demo</a>
+      <a class="btn ghost" href="#videos">Watch the 90-second explainer</a>
     </div>
     <p class="fineprint">No account. No server. Nothing to pay. Chrome, Edge, Brave and Arc.</p>
 
@@ -1090,7 +1091,8 @@ footer .small { max-width: 64ch; line-height: 1.6; }
     <p class="eyebrow">Watch it work</p>
     <h2>Videos</h2>
     <p class="lead">
-      The walkthrough is current. The three after it are mine, recorded on an earlier
+      Start with the 90-second explainer; the walkthrough under it shows every panel. The
+      three after those are mine, recorded on an earlier
       version — everything they show still works exactly that way; what has been added since
       is in the walkthrough. A new one in my own voice is on its way.
     </p>
@@ -1508,6 +1510,19 @@ document.querySelectorAll('#ladder .ticks').forEach((t) => {
  */
 const VIDEOS = [
   {
+    // The short one goes first: ninety seconds is what somebody who has just
+    // landed will actually watch. Served from here for the same reason as the
+    // walkthrough below.
+    lead: true,
+    file: 'seat-watch-explainer.mp4',
+    poster: 'explainer-poster.jpg',
+    tag: 'new · 1:30',
+    tagNew: true,
+    title: 'Seat Watch in 90 seconds',
+    note: 'Why sold out isn\'t final, what the bell does for a film not on sale yet, and '
+      + 'starting either watch by sharing a film to your Telegram bot.',
+  },
+  {
     // Served from this site rather than from YouTube: it is the current tour,
     // it is 11 MB, and the page's whole argument is that it does not need
     // anybody else's server to do its job. Swap `file` for an `id` once it is
@@ -1516,7 +1531,6 @@ const VIDEOS = [
     file: 'seat-watch-full.mp4',
     poster: 'full-poster.jpg',
     tag: 'current · 4:55',
-    tagNew: true,
     title: 'The complete walkthrough',
     note: 'Both watches end to end — seats, booking opens, both sites, and starting one from '
       + 'your phone. Every panel in it is the real interface, rendered by the extension\'s own code.',
