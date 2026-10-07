@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terms of service — FDFS · Seat Watch</title>
+<link rel="icon" href="icon128.png">
+<style>
+  :root { color-scheme: light; --paper:#F4F6FA; --sunk:#EEF1F7; --edge:#E1E7F0; --open:#17915C;
+          --ink:#16202F; --ink-2:#55637A; --ink-3:#8894A8;
+          --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+          --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 400 13px/1.5 var(--sans);
+         -webkit-font-smoothing: antialiased; padding-bottom: 70px; }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 0 16px; }
+  nav { padding: 22px 0 0; font-size: 13px; display: flex; flex-wrap: wrap; gap: 6px 16px; }
+  nav a { color: var(--ink-2); text-decoration: none; }
+  nav a:hover, nav a[aria-current] { color: var(--ink); text-decoration: underline; }
+  header { padding: 30px 0 18px; }
+  .eyebrow { font: 500 9.5px/1 var(--mono); letter-spacing: .15em; text-transform: uppercase; color: var(--ink-3); }
+  h1 { margin: 14px 0 8px; font: 650 26px/1.15 var(--sans); letter-spacing: -.024em; }
+  header p { margin: 0; color: var(--ink-2); font-size: 14px; }
+  h2 { margin: 30px 0 10px; font: 600 15px/1.3 var(--sans); }
+  p, li { color: var(--ink-2); font-size: 13.5px; line-height: 1.65; }
+  p { margin: 0 0 12px; }
+  ul { margin: 0 0 12px; padding-left: 20px; }
+  li { margin-bottom: 7px; }
+  b { color: var(--ink); font-weight: 600; }
+  a { color: var(--open); }
+  code { font: 12px var(--mono); background: var(--sunk); color: var(--ink); padding: 2px 6px; border-radius: 4px; }
+  table { border-collapse: collapse; width: 100%; margin: 4px 0 14px; font-size: 13.5px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--edge); color: var(--ink-2); }
+  th { color: var(--ink); font-weight: 600; }
+  .stamp { margin-top: 34px; padding-top: 16px; border-top: 1px solid var(--edge); color: var(--ink-3); font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav aria-label="Site">
+    <a href="./">Seat Watch</a>
+    <a href="terms.html">Terms</a>
+    <a href="refunds.html">Refunds &amp; cancellation</a>
+    <a href="bot-privacy.html">Bot privacy</a>
+    <a href="privacy.html">Extension privacy</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <header>
+    <p class="eyebrow">FDFS · Seat Watch</p>
+    <h1>Terms of service</h1>
+    <p>The terms for the FDFS · Seat Watch Telegram bot and the film credits sold for it.</p>
+  </header>
+
+  <h2>1. Who runs it</h2>
+  <p>The FDFS · Seat Watch Telegram bot (<b>@FDFSAlertsBot</b>, "the bot") is a product of SignalSky,
+     operated by:</p>
+  <ul>
+    <li><b>Operator:</b> a sole proprietorship trading as <b>YG IT Global Solutions</b></li>
+    <li><b>GSTIN:</b> 36BKTPG1266J1ZS</li>
+    <li><b>Address:</b> Hyderabad, Telangana 502300, India</li>
+    <li><b>Email:</b> <a href="mailto:gosulayaswanth2@gmail.com">gosulayaswanth2@gmail.com</a></li>
+  </ul>
+  <p>Payments are processed by Razorpay and appear on the payment screen and your bank statement
+     under the name <b>SignalSky</b>.</p>
+
+  <h2>2. What the bot does</h2>
+  <p>You share a film from District to the bot in a private Telegram chat. The bot then checks
+     District for you, from a server, so it keeps working while your laptop is shut:</p>
+  <ul>
+    <li><b>Booking opens:</b> it tells you when tickets for the film go on sale at the theatres you
+        picked, including premiere shows.</li>
+    <li><b>Seats:</b> it tells you when seats you asked for become free at a show you picked.</li>
+  </ul>
+  <p>The bot only watches and alerts. It never books tickets, holds seats or pays for anything on
+     your behalf, and it does not need or ask for your District account. Seat Watch is independent
+     and is not affiliated with, endorsed by or connected to District or BookMyShow.</p>
+
+  <h2>3. Film credits</h2>
+  <p>The bot is paid for with film credits:</p>
+  <table>
+    <tr><th>Pack</th><th>Price</th></tr>
+    <tr><td>1 film</td><td>₹29</td></tr>
+    <tr><td>3 films</td><td>₹50</td></tr>
+    <tr><td>8 films</td><td>₹100</td></tr>
+  </table>
+  <ul>
+    <li><b>Your first film is free.</b></li>
+    <li><b>One credit is one film in one city.</b> It covers that film's booking-opens alerts and
+        seat watches on any of its shows in that city. Changing theatres, languages, formats or
+        shows for a film you have already added is free, and so is adding it again after removing it.</li>
+    <li>Prices are in Indian rupees and include applicable taxes.</li>
+    <li>Credits do not expire, are tied to the Telegram chat whose account code was entered when
+        paying, and cannot be exchanged for cash or moved to another chat.</li>
+    <li>When credits run out, films you already added keep being watched; only new films need a credit.</li>
+  </ul>
+
+  <h2>4. Buying and delivery</h2>
+  <p>Send <code>/account</code> to the bot to see your account code (for example
+     <code>FDFS-7KQ2X</code>). Buy a pack on this website and enter that code on the payment page.
+     Credits are added to your chat automatically, usually within a minute or two of a successful
+     payment, and the bot messages you when they arrive. Nothing is shipped; delivery is the credits
+     appearing in your account. If credits have not arrived within an hour, write to us with your
+     account code and the payment ID from your receipt.</p>
+  <p>If you enter someone else's code, the credits go to them. Please check the code before paying.</p>
+
+  <h2>5. No guarantee of tickets or alerts</h2>
+  <p>The bot depends on District's website, Telegram and the internet, none of which we control.
+     District can change its site, delay listings or limit requests; Telegram can delay messages.
+     We work to make alerts fast and reliable, but we cannot guarantee that every opening or free
+     seat will be noticed, that an alert will arrive in time, or that tickets or seats will still be
+     available when you try to book. A credit buys the watching, not a ticket.</p>
+
+  <h2>6. Fair use</h2>
+  <ul>
+    <li>Use the bot in a private chat, for yourself. Group chats are not supported.</li>
+    <li>Do not try to get around credits — for example by automating new accounts for the free film —
+        or use the bot to overload District or anyone else.</li>
+    <li>We may suspend an account that breaks these terms. Credits of a suspended account are not refunded.</li>
+  </ul>
+
+  <h2>7. Changes and availability</h2>
+  <p>We may change the bot, its prices or these terms. Price changes do not affect credits you have
+     already bought. If we ever shut the bot down for good, we will say so in the bot at least 14 days
+     in advance where we can.</p>
+
+  <h2>8. Liability</h2>
+  <p>To the extent the law allows, our total liability for anything to do with the bot is limited
+     to the amount you paid for credits in the three months before the claim. We are not liable for
+     missed shows, tickets or seats, or for any indirect loss.</p>
+
+  <h2>9. Law</h2>
+  <p>These terms are governed by the laws of India. Disputes are subject to the exclusive
+     jurisdiction of the courts in Hyderabad, Telangana.</p>
+
+  <h2>10. Contact</h2>
+  <p>Questions about these terms: <a href="mailto:gosulayaswanth2@gmail.com">gosulayaswanth2@gmail.com</a>.</p>
+
+  <div class="stamp">Last updated 6 October 2026.</div>
+</div>
+</body>
+</html>

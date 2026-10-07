@@ -370,6 +370,15 @@ section { padding: clamp(44px, 6.5vw, 72px) 0; border-top: 1px solid var(--edge)
 .tile p { font-size: 14.8px; color: var(--ink-2); margin-bottom: 0; }
 .tile p + p { margin-top: 10px; }
 
+/* the cloud bot's packs */
+.packs .tile { display: flex; flex-direction: column; gap: 6px; }
+.packs .price { font: 650 30px/1.1 var(--sans); letter-spacing: -.02em; color: var(--ink); }
+.packs .per { font-size: 14px; color: var(--ink-3); }
+.packs .btn { margin-top: 12px; align-self: flex-start; }
+.packs .btn[aria-disabled="true"] { pointer-events: none; opacity: .55; }
+.steps { margin: 22px 0 0; padding-left: 20px; color: var(--ink-2); font-size: 15px; line-height: 1.7; max-width: 64ch; }
+.fine { margin-top: 18px; font-size: 13.5px; color: var(--ink-3); max-width: 70ch; }
+
 /* the two watches, item for item */
 .compare { display: grid; gap: 18px; margin-top: 30px; }
 @media (min-width: 840px) { .compare { grid-template-columns: 1fr 1fr; } }
@@ -558,6 +567,7 @@ footer .small { max-width: 64ch; line-height: 1.6; }
       <a href="#sites" class="hide-sm">Both sites</a>
       <a href="#phone" class="hide-sm">On your phone</a>
       <a href="#videos">Videos</a>
+      <a href="#bot">Laptop shut?</a>
       <a href="https://chromewebstore.google.com/detail/seat-watch-for-bookmyshow/hkbeaeicmbnldhgfkoonkkebdlphnohn">Install</a>
     </nav>
   </div>
@@ -1142,13 +1152,72 @@ footer .small { max-width: 64ch; line-height: 1.6; }
 </section>
 
 <!-- -------------------------------------------------------------- privacy -->
+<!-- -------------------------------------------------------------- the bot -->
+<!--
+  The paid cloud bot. Its price lives HERE, never in the bot: Telegram wants
+  digital goods sold inside a bot paid in Stars, so the bot only names its
+  account code and points at "the Seat Watch website".
+
+  To open buying: put each Razorpay Payment Page's address in its button's
+  href, and drop aria-disabled and the "opening soon" wording.
+-->
+<section id="bot">
+  <div class="wrap">
+    <p class="eyebrow">Laptop shut? · District</p>
+    <h2>@FDFSAlertsBot keeps watching from a server.</h2>
+    <p class="lead">
+      The extension checks from your own browser, so it stops when your laptop sleeps. The
+      Telegram bot does the same District checks — booking opening, seats coming free — from a
+      server, all day and all night. Share a film from the District app to
+      <a href="https://t.me/FDFSAlertsBot">@FDFSAlertsBot</a>. <b>Your first film is free.</b>
+    </p>
+
+    <div class="grid three packs">
+      <div class="tile">
+        <h3>1 film</h3>
+        <div class="price">₹29</div>
+        <div class="per">one film</div>
+        <a class="btn ghost" href="#bot" aria-disabled="true">Opening soon</a>
+      </div>
+      <div class="tile">
+        <h3>3 films</h3>
+        <div class="price">₹50</div>
+        <div class="per">about ₹17 a film</div>
+        <a class="btn primary" href="#bot" aria-disabled="true">Opening soon</a>
+      </div>
+      <div class="tile">
+        <h3>8 films</h3>
+        <div class="price">₹100</div>
+        <div class="per">₹12.50 a film</div>
+        <a class="btn ghost" href="#bot" aria-disabled="true">Opening soon</a>
+      </div>
+    </div>
+
+    <ol class="steps">
+      <li>Send <code>/account</code> to the bot. It answers with your account code, like <code>FDFS-7KQ2X</code>.</li>
+      <li>Pick a pack above and enter that code on the payment page. UPI, cards and net banking all work.</li>
+      <li>The bot tells you when the credits arrive — usually within a minute or two.</li>
+    </ol>
+    <p class="fine">
+      One credit is one film in one city: its booking-opens alerts and seat watches on any of its
+      shows. Credits don't expire. Payments are processed by Razorpay and show as
+      <b>SignalSky</b>, Seat Watch's parent product, on the payment screen and your statement.
+      Prices include taxes. All sales are final — see <a href="refunds.html">refunds</a>,
+      <a href="terms.html">terms</a> and <a href="bot-privacy.html">what the bot keeps</a>.
+      BookMyShow stays in the free extension: it limits how often a server may ask.
+    </p>
+  </div>
+</section>
+
 <section id="privacy">
   <div class="wrap narrow">
     <p class="eyebrow">Privacy</p>
-    <h2>There is no server behind this.</h2>
+    <h2>There is no server behind the extension.</h2>
     <p class="lead">
-      Nobody operates a service here, so there's nowhere for your data to be collected or
-      breached. Your watch list lives in your own browser's storage and uninstalling deletes it.
+      Nobody operates a service behind the extension, so there's nowhere for your data to be
+      collected or breached. Your watch list lives in your own browser's storage and uninstalling
+      deletes it. (The optional Telegram bot above is different — it runs on a server, and
+      <a href="bot-privacy.html">this page</a> lists everything it keeps.)
     </p>
     <div class="grid two">
       <div class="tile"><h3>No account</h3><p>Nothing to sign up for, nothing to log into, no email asked for.</p></div>
@@ -1257,6 +1326,10 @@ footer .small { max-width: 64ch; line-height: 1.6; }
       <a href="https://github.com/yashug/bms-seat-watch-extension">Source on GitHub</a>
       <a href="privacy.html">Privacy policy</a>
       <a href="#videos">Videos</a>
+      <a href="terms.html">Terms</a>
+      <a href="refunds.html">Refunds</a>
+      <a href="bot-privacy.html">Bot privacy</a>
+      <a href="contact.html">Contact</a>
     </div>
     <p class="small">
       Seat Watch is an independent project and is not affiliated with, endorsed by or connected

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bot privacy — FDFS · Seat Watch</title>
+<link rel="icon" href="icon128.png">
+<style>
+  :root { color-scheme: light; --paper:#F4F6FA; --sunk:#EEF1F7; --edge:#E1E7F0; --open:#17915C;
+          --ink:#16202F; --ink-2:#55637A; --ink-3:#8894A8;
+          --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+          --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 400 13px/1.5 var(--sans);
+         -webkit-font-smoothing: antialiased; padding-bottom: 70px; }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 0 16px; }
+  nav { padding: 22px 0 0; font-size: 13px; display: flex; flex-wrap: wrap; gap: 6px 16px; }
+  nav a { color: var(--ink-2); text-decoration: none; }
+  nav a:hover, nav a[aria-current] { color: var(--ink); text-decoration: underline; }
+  header { padding: 30px 0 18px; }
+  .eyebrow { font: 500 9.5px/1 var(--mono); letter-spacing: .15em; text-transform: uppercase; color: var(--ink-3); }
+  h1 { margin: 14px 0 8px; font: 650 26px/1.15 var(--sans); letter-spacing: -.024em; }
+  header p { margin: 0; color: var(--ink-2); font-size: 14px; }
+  h2 { margin: 30px 0 10px; font: 600 15px/1.3 var(--sans); }
+  p, li { color: var(--ink-2); font-size: 13.5px; line-height: 1.65; }
+  p { margin: 0 0 12px; }
+  ul { margin: 0 0 12px; padding-left: 20px; }
+  li { margin-bottom: 7px; }
+  b { color: var(--ink); font-weight: 600; }
+  a { color: var(--open); }
+  code { font: 12px var(--mono); background: var(--sunk); color: var(--ink); padding: 2px 6px; border-radius: 4px; }
+  table { border-collapse: collapse; width: 100%; margin: 4px 0 14px; font-size: 13.5px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--edge); color: var(--ink-2); }
+  th { color: var(--ink); font-weight: 600; }
+  .stamp { margin-top: 34px; padding-top: 16px; border-top: 1px solid var(--edge); color: var(--ink-3); font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav aria-label="Site">
+    <a href="./">Seat Watch</a>
+    <a href="terms.html">Terms</a>
+    <a href="refunds.html">Refunds &amp; cancellation</a>
+    <a href="bot-privacy.html">Bot privacy</a>
+    <a href="privacy.html">Extension privacy</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <header>
+    <p class="eyebrow">FDFS · Seat Watch</p>
+    <h1>What the bot keeps</h1>
+    <p>The Telegram bot runs on a server, so unlike the extension it does store things. This is all of it.</p>
+  </header>
+
+  <h2>Who is responsible</h2>
+  <ul>
+    <li><b>Operator:</b> a sole proprietorship trading as <b>YG IT Global Solutions</b></li>
+    <li><b>GSTIN:</b> 36BKTPG1266J1ZS</li>
+    <li><b>Address:</b> Hyderabad, Telangana 502300, India</li>
+    <li><b>Email:</b> <a href="mailto:gosulayaswanth2@gmail.com">gosulayaswanth2@gmail.com</a></li>
+  </ul>
+  <p>This page covers the <b>@FDFSAlertsBot</b> Telegram bot. The Chrome extension has its own
+     policy — <a href="privacy.html">it has no server and keeps everything in your browser</a>.</p>
+
+  <h2>What the bot stores</h2>
+  <ul>
+    <li><b>Your Telegram chat ID</b> — the number Telegram uses for your chat with the bot, so alerts
+        reach you. Not your phone number, and not your name.</li>
+    <li><b>Your account</b> — your account code, film credits left, whether your free film is used,
+        and which films (and cities) you have added.</li>
+    <li><b>Your watches</b> — the films, cities, theatres, languages, formats and shows you picked,
+        your settings such as how many seats together, and what the last checks found.</li>
+    <li><b>Your payments</b> — for each pack you buy: the Razorpay payment ID, the amount, how many
+        credits it added, and when.</li>
+    <li><b>Server logs</b> — short technical lines (for example "seat check failed") which may
+        include your chat ID, kept for troubleshooting.</li>
+  </ul>
+  <p>The bot reads only the messages you send to it, in your private chat with it.</p>
+
+  <h2>Payments</h2>
+  <p>Payments are made on a Razorpay payment page, not in the bot. Razorpay handles your card, UPI or
+     bank details under its own privacy policy; we never see them. From each payment we read only the
+     amount, its status, its payment ID and the account code you typed, to add your credits. Razorpay
+     also shows us the email and phone number you enter on its page, as part of our merchant account;
+     the bot does not copy them.</p>
+
+  <h2>Who else is involved</h2>
+  <ul>
+    <li><b>Telegram</b> carries the messages between you and the bot.</li>
+    <li><b>District</b> is asked about the films and shows you watch. These requests carry nothing
+        about you — no account, no chat ID — and are the same for everyone watching that film.</li>
+    <li><b>Razorpay</b> processes payments, as above.</li>
+    <li><b>Oracle Cloud</b> hosts the server the bot runs on.</li>
+  </ul>
+  <p>We do not sell or share your data with anyone else, and there is no advertising, analytics or
+     tracking.</p>
+
+  <h2>How long it is kept</h2>
+  <ul>
+    <li>A seat watch is deleted a few hours after its show starts; a booking-opens watch after its
+        film is out. Stopping a watch deletes it at once.</li>
+    <li>Your account and payment records are kept while you use the bot, and payment records for as
+        long as Indian tax law requires.</li>
+  </ul>
+
+  <h2>Deleting your data</h2>
+  <p>Email <a href="mailto:gosulayaswanth2@gmail.com">gosulayaswanth2@gmail.com</a> from anywhere with
+     your account code and we will delete your account and watches within 7 days, keeping only the
+     payment records the law requires. Unused credits are lost when an account is deleted.</p>
+
+  <div class="stamp">Last updated 6 October 2026.</div>
+</div>
+</body>
+</html>
