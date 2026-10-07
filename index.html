@@ -1158,8 +1158,9 @@ footer .small { max-width: 64ch; line-height: 1.6; }
   digital goods sold inside a bot paid in Stars, so the bot only names its
   account code and points at "the Seat Watch website".
 
-  To open buying: put each Razorpay Payment Page's address in its button's
-  href, and drop aria-disabled and the "opening soon" wording.
+  Each button is a Razorpay Payment Page (live since 2026-10-07): a fixed
+  amount and a required "Seat Watch account code" field the bot matches on.
+  The amounts must stay 29, 50 and 100 — cloud/credits.mjs PACKS.
 -->
 <section id="bot">
   <div class="wrap">
@@ -1177,19 +1178,19 @@ footer .small { max-width: 64ch; line-height: 1.6; }
         <h3>1 film</h3>
         <div class="price">₹29</div>
         <div class="per">one film</div>
-        <a class="btn ghost" href="#bot" aria-disabled="true">Opening soon</a>
+        <a class="btn ghost" href="https://rzp.io/rzp/seatwatch-1" rel="noopener">Buy 1 film</a>
       </div>
       <div class="tile">
         <h3>3 films</h3>
         <div class="price">₹50</div>
         <div class="per">about ₹17 a film</div>
-        <a class="btn primary" href="#bot" aria-disabled="true">Opening soon</a>
+        <a class="btn primary" href="https://rzp.io/rzp/seatwatch-3" rel="noopener">Buy 3 films</a>
       </div>
       <div class="tile">
         <h3>8 films</h3>
         <div class="price">₹100</div>
         <div class="per">₹12.50 a film</div>
-        <a class="btn ghost" href="#bot" aria-disabled="true">Opening soon</a>
+        <a class="btn ghost" href="https://rzp.io/rzp/seatwatch-8" rel="noopener">Buy 8 films</a>
       </div>
     </div>
 
