@@ -147,6 +147,25 @@ header.hero .lede b { color: var(--ink); }
  * the user agent's [hidden] { display: none }, so without this line the panel
  * shows on every desktop — the same trap the extension's own popup fell into. */
 .onphone[hidden] { display: none; }
+
+/* The two ways to run it, side by side at the top: the free extension and the
+   paid bot. Same weight, so neither reads as the footnote of the other. */
+.ways { display: grid; gap: 14px; margin: 28px 0 14px; }
+@media (min-width: 780px) { .ways { grid-template-columns: 1fr 1fr; } }
+.way { display: flex; flex-direction: column; gap: 10px; padding: 20px 22px;
+       background: var(--card); border: 1px solid var(--edge); border-radius: var(--r); box-shadow: var(--lift); }
+.way.ext { border-top: 3px solid var(--open); }
+.way.bot { border-top: 3px solid var(--dst); }
+.way .tag { font: 500 10px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
+.way h3 { margin: 0; font-size: 18px; }
+.way p { margin: 0; font-size: 14.5px; color: var(--ink-2); }
+.way .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: auto; padding-top: 6px; }
+.way .pack { padding: 7px 11px; font-size: 13.5px; }
+.way .packs-row { margin-top: 0; padding-top: 0; gap: 6px; }
+.way .note { font-size: 12.5px; color: var(--ink-3); }
+.way .note a { color: inherit; }
+.hero .more { margin: 0 0 6px; font-size: 14.5px; }
+.hero .more a { color: var(--ink-2); }
 .onphone {
   display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
   margin: 18px 0 0; padding: 16px 18px;
@@ -584,15 +603,47 @@ footer .small { max-width: 64ch; line-height: 1.6; }
     </p>
     <p class="lede">Seat Watch runs one watch for each, on BookMyShow and District.</p>
 
-    <div class="cta">
-      <a class="btn primary" href="https://chromewebstore.google.com/detail/seat-watch-for-bookmyshow/hkbeaeicmbnldhgfkoonkkebdlphnohn">Add to Chrome — free</a>
-      <a class="btn ghost" href="#videos">Watch the 90-second explainer</a>
+    <!-- Two ways to run it. The bot's packs are the same Razorpay pages as the
+         #bot section below; keep the two in step. -->
+    <div class="ways">
+      <div class="way ext">
+        <span class="tag">On your laptop · free</span>
+        <h3>The Chrome extension</h3>
+        <p>Watches <b>BookMyShow and District</b> — seats on a sold-out show, and booking
+           opening for a film that isn't on sale yet. Alerts on your desktop and, if you
+           like, in Telegram. It checks from your own browser, so it pauses while your
+           laptop sleeps.</p>
+        <div class="row">
+          <a class="btn primary" href="https://chromewebstore.google.com/detail/seat-watch-for-bookmyshow/hkbeaeicmbnldhgfkoonkkebdlphnohn">Add to Chrome — free</a>
+        </div>
+        <p class="note">No account. No server. Nothing to pay. Chrome, Edge, Brave and Arc.</p>
+      </div>
+
+      <div class="way bot">
+        <span class="tag">On a server · laptop shut</span>
+        <h3>The Telegram bot, @FDFSAlertsBot</h3>
+        <p>The same two watches for <b>District</b>, checked from a server day and night —
+           nothing to install, and it keeps going with your laptop closed. Share a film from
+           the District app to the bot. <b>Your first film is free.</b></p>
+        <div class="row">
+          <a class="btn primary" href="https://t.me/FDFSAlertsBot">Open in Telegram</a>
+        </div>
+        <div class="row packs-row">
+          <span class="note">Buy credits:</span>
+          <a class="btn ghost pack" href="https://rzp.io/rzp/seatwatch-1" rel="noopener">₹29 · 1 film</a>
+          <a class="btn ghost pack" href="https://rzp.io/rzp/seatwatch-3" rel="noopener">₹50 · 3 films</a>
+          <a class="btn ghost pack" href="https://rzp.io/rzp/seatwatch-8" rel="noopener">₹100 · 8 films</a>
+        </div>
+        <p class="note">Send <code>/account</code> to the bot for your code, and enter it when you pay.
+           One credit = one film in one city. <a href="#bot">How credits work</a></p>
+      </div>
     </div>
-    <p class="fineprint">No account. No server. Nothing to pay. Chrome, Edge, Brave and Arc.</p>
+    <p class="more"><a href="#videos">Watch the 90-second explainer →</a></p>
 
     <div class="onphone" id="onphone-hero" hidden>
       <p><b>On a phone?</b> Chrome extensions only install on a computer — so copy
-      <code>tinyurl.com/seat-watch</code> and open it on your laptop when you get home.</p>
+      <code>tinyurl.com/seat-watch</code> and open it on your laptop when you get home.
+      For District, the Telegram bot above works from your phone right now.</p>
       <button type="button" data-copy>Copy the link</button>
     </div>
 
