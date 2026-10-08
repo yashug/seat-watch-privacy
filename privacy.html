@@ -204,6 +204,27 @@ a { color: var(--open); }
                 border-radius: 6px; white-space: pre-wrap; overflow-wrap: anywhere; }
   .awake .lid { margin: 2px 0 0; color: var(--ink-3); font-size: 12px; line-height: 1.55; }
 
+/* --- the other answer to the same problem ----------------------------------
+   @FDFSAlertsBot, offered only where the extension admits its one limit: right
+   under the keep-awake recipes, as the alternative to all of them. It continues
+   that box rather than sitting beside it as another card — a ruled strip on its
+   foot, so it reads as "or", not as an advert. Teal because the bot watches
+   District only, and teal is District here everywhere else. */
+  .elsewhere { margin: 4px -20px -4px; padding: 15px 20px 16px;
+               border-top: 1px solid var(--edge); border-left: 3px solid var(--dst);
+               background: var(--dst-2); border-radius: 0 0 var(--r) var(--r); }
+  .elsewhere h3 { margin: 0 0 5px; font: 600 13.5px/1.35 var(--sans); color: var(--ink);
+                  letter-spacing: 0; text-transform: none; }
+  .elsewhere p { margin: 0; color: var(--ink-2); font-size: 13px; line-height: 1.6; max-width: 64ch; }
+  .elsewhere .row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-top: 12px; }
+  .elsewhere .open { display: inline-flex; align-items: center; font: 600 12.5px/1 var(--sans);
+                     color: #FFFFFF; background: var(--dst); border: 1px solid var(--dst);
+                     border-radius: 8px; padding: 9px 13px; text-decoration: none; box-shadow: var(--lift); }
+  .elsewhere .open:hover { background: #0B6870; border-color: #0B6870; }
+  .elsewhere .open:focus-visible { outline: 2px solid var(--dst); outline-offset: 2px; }
+  .elsewhere .note { color: var(--ink-3); font-size: 12px; line-height: 1.5; }
+  .elsewhere .note a { color: var(--dst); }
+
 
 /* --- where a watch lives ---------------------------------------------------
    The site's name, set in the interface's own type rather than its logo: this
